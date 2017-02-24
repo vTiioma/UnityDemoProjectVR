@@ -4,9 +4,13 @@ public class TargetView : View {
 	[SerializeField]
 	private TargetModel model;
 	private Animator animator;
+	private ValueRandomizer valueX, valueY;
 
 	private void Awake () {
 		this.animator = this.gameObject.GetComponentInChildren<Animator> ();
+		this.valueX = new ValueRandomizer ((MonoBehaviour)this, ((float x) => this.animator.SetFloat ("x", x)));
+		this.valueY = new ValueRandomizer ((MonoBehaviour)this, ((float y) => this.animator.SetFloat ("y", y)));
+
 		this.model.onUpdateTarget += this.OnUpdateTarget;
 
 		this.model.onEnable += OnEnable;
@@ -22,11 +26,6 @@ public class TargetView : View {
 
 	private void OnUpdateTarget (float progress) {
 
-	}
-
-	private void OnUpdateRotation (float x, float y) {
-		this.animator.SetFloat ("x", x);
-		this.animator.SetFloat ("y", y);
 	}
 
 	private void OnEnable () {
