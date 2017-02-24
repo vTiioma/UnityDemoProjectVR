@@ -4,17 +4,10 @@ using UnityEngine;
 public class TargetModel : Model {
 	public float multiplier = 1.0f;
 
-	public Action<float,float> onUpdateRotation;
 	public Action<float> onUpdateTarget;
 	public Action onEnable, onDisable;
 
-	[SerializeField]
-	private float x, y;
 	private float progress;
-
-	void Update () {
-//		UpdateRotation ();
-	}
 
 	public void Enable () {
 		if (this.onEnable != null) {
@@ -25,12 +18,6 @@ public class TargetModel : Model {
 	public void Disable () {
 		if (this.onDisable != null) {
 			this.onDisable ();
-		}
-	}
-
-	public void UpdateRotation () {
-		if (this.onUpdateRotation != null) {
-			this.onUpdateRotation (x, y);
 		}
 	}
 

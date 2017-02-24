@@ -8,7 +8,6 @@ public class TargetView : View {
 	private void Awake () {
 		this.animator = this.gameObject.GetComponentInChildren<Animator> ();
 		this.model.onUpdateTarget += this.OnUpdateTarget;
-		this.model.onUpdateRotation += this.OnUpdateRotation;
 
 		this.model.onEnable += OnEnable;
 		this.model.onDisable += OnDisable;
@@ -16,7 +15,6 @@ public class TargetView : View {
 
 	private void OnDestroy () {
 		this.model.onUpdateTarget -= this.OnUpdateTarget;
-		this.model.onUpdateRotation -= this.OnUpdateRotation;
 
 		this.model.onEnable -= OnEnable;
 		this.model.onDisable -= OnDisable;
