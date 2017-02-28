@@ -8,11 +8,11 @@ public class TargetController : Controller {
 	private TargetModel model;
 
 	public void OnPointerEnter (BaseEventData e) {
-		Debug.Log ("enter");
+		this.model.StartTargetUpdate ();
 	}
 
 	public void OnPointerExit (BaseEventData e) {
-		Debug.Log ("exit");
+		this.model.StopTargetUpdate ();
 	}
 
 	public void Enable () {

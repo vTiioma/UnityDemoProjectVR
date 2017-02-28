@@ -7,7 +7,13 @@ public class TargetModel : Model {
 	public Action<float> onUpdateTarget;
 	public Action onEnable, onDisable;
 
+	private RepeatLoop repeatLoop;
+	[SerializeField]
 	private float progress;
+
+	private void Awake () {
+		repeatLoop = new RepeatLoop ((MonoBehaviour)this, UpdateTarget);
+	}
 
 	public void Enable () {
 		if (this.onEnable != null) {
@@ -21,7 +27,15 @@ public class TargetModel : Model {
 		}
 	}
 
-	public void UpdateTarget () {
+	public void StartTargetUpdate () {
+		repeatLoop.Start ();
+	}
+
+	public void StopTargetUpdate () {
+		repeatLoop.Stop ();
+	}
+
+	private void UpdateTarget () {
 		this.progress += Time.deltaTime * multiplier;
 		if (this.progress > 1.0f) {
 			this.progress = 1.0f;
