@@ -12,18 +12,29 @@ public class TargetModel : Model {
 	private float progress;
 
 	private void Awake () {
+		TargetObserver.onTargetSelected += this.OnTargetSelected;
+		TargetObserver.onFull += this.OnFull;
 		repeatLoop = new RepeatLoop ((MonoBehaviour)this, UpdateTarget);
 	}
 
-	public void Enable () {
-		if (this.onEnable != null) {
-			this.onEnable ();
+	private void OnDestroy () {
+		TargetObserver.onTargetSelected -= this.OnTargetSelected;
+		TargetObserver.onFull -= this.OnFull;
+	}
+
+	private void OnTargetSelected (TargetModel target) {
+		if (target == this) {
+			if (this.onEnable != null) {
+				this.onEnable ();
+			}
 		}
 	}
 
-	public void Disable () {
-		if (this.onDisable != null) {
-			this.onDisable ();
+	private void OnFull (TargetModel target) {
+		if (target == this) {
+			if (this.onDisable != null) {
+				this.onDisable ();
+			}
 		}
 	}
 
@@ -43,6 +54,10 @@ public class TargetModel : Model {
 
 		if (this.onUpdateTarget != null) {
 			this.onUpdateTarget (progress);
+		}
+
+		if (this.progress == 1.0f) {
+			TargetObserver.OnFull (this);
 		}
 	}
 }
